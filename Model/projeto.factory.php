@@ -9,6 +9,12 @@
         public $idSituacaoProjeto;
         public $idStatusProjeto;
         public $idSol;
+        public $idItem;
+        public $dtTramite;
+        public $tramite;
+        public $userTramite;
+        public $docAnx;
+        public $imgAnx;
         public $con;
 
         function edit_bd($idSol)
@@ -23,7 +29,7 @@
             $this->date = $res->dtSolicitacao;
         }
 
-        function addTEc($idTec,$situacao,$status,$idSol){
+        function addTec($idTec,$situacao,$status,$idSol){
             $sql = "insert into tb_projeto (idUserTecnico,idSituacaoProjeto,idStatusProjeto,idSolicitacaoProjeto) values ('$idTec','$situacao','$status','$idSol')";
             return $this->con->query($sql);
         }
@@ -32,15 +38,26 @@
             $sql = "update tb_solicitacao SET idStatusSolicitacao = '$statusSol' where idSolicitacao = '$idSol'";
             return $this->con->query($sql);
         }
+        function statusP($statusSol,$idProjeto)
+        {
+            $sql = "update tb_projeto SET idStatusProjeto = '$statusSol' where idProjeto = '$idProjeto'";
+            return $this->con->query($sql);
+        }
+        
+        function addTramite($dtTramite,$tramite, $userTramite, $docAnx, $imgAnx,$idProj)
+        {
+            $sql = "insert into tb_item_projeto (dtItemProjeto,dsItemProjeto,idItemUser,docItemProjeto,imgItemProjeto,idProjeto) values ('$dtTramite','$tramite','$userTramite','$docAnx','$imgAnx','$idProj')";
+            return $this->con->query($sql);
+        }
     }
 
-    function menuProj($idProjeto){
+    function menuProj($idProj){
         $con = $GLOBALS["con"];
         $sql = "SELECT p.*, u.nmUser as 'nome', s.nmStatus as 'status', sol.dtSolicitacao as 'DtInc', sol.nmTituloSolicitacao as 'titulo', sol.dsSolicitacao as 'descricao'  FROM tb_projeto as p 
                 inner join tb_cad_user u on u.idUser = p.idUserTecnico
                 inner join tb_item_status s on s.idStatus = p.idStatusProjeto
                 inner join tb_solicitacao sol on sol.idSolicitacao = p.idSolicitacaoProjeto
-                WHERE idProjeto = ".$idProjeto."";
+                WHERE idProjeto = $idProj";
         $query = $con->query($sql);
         if (!$query) {
             die("Erro na consulta SQL: " . $con->error . "<br>SQL: " . $sql);
@@ -62,17 +79,18 @@
                         <p><strong>Data de Criação: </strong>".implode('/', array_reverse(explode('-', $date)))."</p>
                         <p><strong>Status: </strong> <span class='status'>$status </span></p>
                         <p><strong>Técnico: </strong> $tecnico</p>
+                        <input type='hidden' name='idSol' value='$idSol'> 
                     </div>
                 </div>
             ";
         }
     };
 
-    function msgProj($idProjeto){
+    function msgProj($idProj){
         $con = $GLOBALS["con"];
         $sql = "SELECT i.idItemProjeto as 'item', i.dtItemProjeto as 'dtItem', i.dsItemProjeto as 'descItem', i.imgItemProjeto as 'imgAnx', i.docItemProjeto as 'docAnx', u.nmUser as 'nome', u.idPerfil as 'perfil' FROM tb_item_projeto as i
                 INNER JOIN tb_cad_user u ON i.idItemUser = u.idUser
-                WHERE i.idProjeto = $idProjeto
+                WHERE i.idProjeto = $idProj
                 ORDER BY i.idItemProjeto ASC, i.dtItemProjeto DESC";
         $query = $con->query($sql);
         if (!$query) {
@@ -80,52 +98,74 @@
         }
 
         if ($query->num_rows == 0) {
-            echo "<p>Não há interações.</p>";
+            echo "
+            <div <div class='chat-box'>
+                <div class='conteudo'>
+                    <p class='text-center'>Não há interações.</p>
+                </div>
+            </div>";
             return;
         }
 
         echo "<div class='chat-box'>";
         while ($row = $query->fetch_array()) {
-        $nome = htmlspecialchars($row["nome"]);
-        $dtItem = $row["dtItem"];
-        $dtFormatada = date('d/m/Y H:i', strtotime($dtItem));
-        $descricao = nl2br(htmlspecialchars($row["descItem"]));
-        $perfil = $row["perfil"];
+            $nome = htmlspecialchars($row["nome"]);
+            $dtItem = $row["dtItem"];
+            $dtFormatada = date('d/m/Y H:i', strtotime($dtItem));
+            $descricao = nl2br(htmlspecialchars($row["descItem"]));
+            $perfil = $row["perfil"];
+            $img = $row['imgAnx'];
+            $doc = $row['docAnx'];
 
-        if ($perfil == '3') {
-            echo "
-            <div class='mensagem usuario'>
-                <div class='conteudo'>
-                    $descricao
-                    <small>$nome - $dtFormatada</small>
-                </div>
-            </div>";
-        } elseif ($perfil == '1' || $perfil == '2') {
-            echo "
-            <div class='mensagem tecnico'>
-                <div class='conteudo'>
-                    $descricao
-                    <small>$nome - $dtFormatada</small>
-                </div>
-            </div>";
+            if ($perfil == '3') {
+                echo "
+                <div class='mensagem usuario'>
+                    <div class='conteudo'>
+                        $descricao";
+                        $caminho_base = '../Files_Protesa/';
+                        $diretorio = $caminho_base . "chamado_" . $idProj . "/";
+                        if (!empty($img) && file_exists($diretorio . $img)) {
+                            echo"
+                            <div class='anexo'>
+                                <a href='{$diretorio}{$img}' target='_blank' style='color:rgb(0, 0, 0);'>Anexo ({$img})</a>
+                            </div>";
+                        }
+                        if (!empty($doc) && file_exists($diretorio . $doc)) {
+                            echo"
+                            <div class='anexo'>
+                                <a href='{$diretorio}{$doc}' target='_blank' style='color:rgb(0, 0, 0);'>Anexo ({$doc})</a>
+                            </div>";
+                        }
+                        echo"
+                        <small>$nome - $dtFormatada</small>
+                    </div>
+                </div>";
+            } elseif ($perfil == '1' || $perfil == '2') {
+                echo "
+                <div class='mensagem tecnico'>
+                    <div class='conteudo'>
+                        $descricao";
+                        $caminho_base = '../Files_Protesa/';
+                        $diretorio = $caminho_base . "chamado_" . $idProj . "/";
+                        if (!empty($img) && file_exists($diretorio . $img)) {
+                            echo"
+                            <div class='anexo'>
+                                <a href='{$diretorio}{$img}' target='_blank' style='color:rgb(0, 0, 0);'>Anexo ({$img})</a>
+                            </div>";
+                        }
+                        if (!empty($doc) && file_exists($diretorio . $doc)) {
+                            echo"
+                            <div class='anexo'>
+                                <a href='{$diretorio}{$doc}' target='_blank' style='color:rgb(0, 0, 0);'>Anexo ({$doc})</a>
+                            </div>";
+                        }
+                        echo"
+                        <small>$nome - $dtFormatada</small>
+                    </div>
+                </div>";
+            }
         }
-    }
     echo "
-        <div class='formulario-resposta'>
-        <h4>Responder</h4>
-        <form action='responder_chamado.php' method='POST'>
-            <textarea name='mensagem' rows='4' placeholder='Digite sua mensagem...' required></textarea>
-            <label for='status'>Alterar Status:</label>
-            <select name='status' id='status'>
-                <option value='aberto'>Aberto</option>
-                <option value='em atendimento' selected>Em Atendimento</option>
-                <option value='fechado'>Fechado</option>
-            </select>
-
-            <input type='hidden' name='chamado_id' value='123'>
-            <input type='submit' class='btn btn-primary btn-block mb-4' value='Enviar'>
-        </form>
-    </div>
         </div>
         ";
     }

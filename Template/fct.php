@@ -48,13 +48,13 @@ function getSolicitacao($id){
     return $data; 
     
 }
-function getCargo(){
+function getStatus(){
     $mysqli = datacon();
 
     if(!$mysqli){
         return false;
     }
-    $res = $mysqli->query("SELECT * FROM tb_item_cargo");
+    $res = $mysqli->query("SELECT * FROM tb_item_status");
     while ($row = $res->fetch_assoc()) {
         $data[] = $row;
     }
@@ -82,12 +82,20 @@ function reqSolEmp($id){
         echo $nmEmpresa;
     }
 }
+
 function listProj(){
     $mysqli = datacon();
     if (!$mysqli) {
         return false;
     }
-    $sql = "SELECT sol.idSolicitacao as 'idSol', sol.nmTituloSolicitacao as 'titulo', sol.dtSolicitacao as 'dtSol', p.idProjeto as 'idProjeto' from tb_solicitacao as sol inner join tb_projeto p on sol.idSolicitacao = p.idSolicitacaoProjeto where idStatusSolicitacao !=1";
+    if (!isset($_SESSION['id'])) {
+        return false;
+    }
+    $idUser = (int) $_SESSION['id'];
+    $sql = "SELECT sol.idSolicitacao as 'idSol', sol.nmTituloSolicitacao as 'titulo', st.nmStatus as 'status', sol.dtSolicitacao as 'dtSol', p.idProjeto as 'idProjeto' from tb_solicitacao as sol 
+            inner join tb_projeto p on sol.idSolicitacao = p.idSolicitacaoProjeto 
+            inner join tb_item_status st on p.idStatusProjeto = st.idStatus
+            where sol.idStatusSolicitacao !=1 and p.idUserTecnico = $idUser || sol.idUserSolicitacao = $idUser";
     $res = $mysqli->query($sql);
     if (!$res) {
         // Se houver erro na consulta, pode retornar false ou tratar o erro
@@ -97,10 +105,38 @@ function listProj(){
     while ($row = $res->fetch_assoc()) {        
         $data[] = $row;
         $idSol = $row['idSol'];
-        $idProj = $row['idProjeto'];
+        $idProjeto = $row['idProjeto'];
+        $status = $row['status'];
         $titulo = $row['titulo'];
         $dt = $row['dtSol'];
     }
     return $data; 
 }
+
+function listProjAdmin(){
+    $mysqli = datacon();
+    if (!$mysqli) {
+        return false;
+    }
+    $sql = "SELECT sol.idSolicitacao as 'idSol', st.nmStatus as 'status', sol.nmTituloSolicitacao as 'titulo', sol.dtSolicitacao as 'dtSol', p.idProjeto as 'idProjeto' from tb_solicitacao as sol 
+            inner join tb_projeto p on sol.idSolicitacao = p.idSolicitacaoProjeto 
+            inner join tb_item_status st on p.idStatusProjeto = st.idStatus
+            where idStatusSolicitacao !=1";
+    $res = $mysqli->query($sql);
+    if (!$res) {
+        // Se houver erro na consulta, pode retornar false ou tratar o erro
+        return false;
+    }
+    $data = [];
+    while ($row = $res->fetch_assoc()) {        
+        $data[] = $row;
+        $idSol = $row['idSol'];
+        $idProjeto = $row['idProjeto'];
+        $status = $row['status'];
+        $titulo = $row['titulo'];
+        $dt = $row['dtSol'];
+    }
+    return $data; 
+}
+
 ?>

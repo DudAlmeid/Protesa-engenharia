@@ -19,33 +19,7 @@
         <?php 
             if(isset($_SESSION['tipo'])){
                 if($_SESSION['tipo']=='1'){
-                    navbarTecA();
-                    //solicitacao
-                    echo"
-                    <div class='row justify-content-center'>
-                        <div class='col-sm-11'>
-                            <header class='text-center'>
-                                <br>
-                                <h3>Cotações abertas</h3>
-                                <br>
-                            </header>  
-                            <ul class='list-group list-group-horizontal list-group-item-secondary text-center'>
-                                <li class='list-group-item col-sm-1'>ID</li>
-                                <li class='list-group-item col-sm-8'>Titulo</li>
-                                <li class='list-group-item col-sm-3'>Data Criação</li>
-                            </ul> 
-                            <br>
-                            <?php
-                            $listas = listProj();
-                            foreach ($listas as $lista){ ?>
-                                <ul class='list-group list-group-horizontal list-group-item-light'>
-                                    <a class='list-group-item col-sm-1' href='visuCot.php?idProjeto=" . $lista['idProjeto'] . "'>" . $lista['idSolicitacao'] . "</a>
-                                    <a class='list-group-item col-sm-8'>". $lista['nmTituloSolicitacao']."</a>
-                                    <a class='list-group-item col-sm-3'>". implode('/', array_reverse(explode('-', $lista ['dtSolicitacao'])))."</a>
-                                </ul>
-                            <?php } ?>
-                        </div>
-                    </div>";
+                    navbarTecA();                 
                 }
                 else if($_SESSION['tipo'] == '2'){
                     navbarTec();
@@ -60,34 +34,111 @@
 
         <br>
         <!--solicitacao-->
-        <div class="row justify-content-center">
-            <div class="col-sm-11">
-                <header class="text-center">
-                    <br>
-                    <h3>Cotações abertas</h3>
-                    <br>
-                </header>  
-                <ul class="list-group list-group-horizontal list-group-item-secondary text-center">
-                    <li class="list-group-item col-sm-1">ID</li>
-                    <li class="list-group-item col-sm-8">Titulo</li>
-                    <li class="list-group-item col-sm-3">Data Criação</li>
-                </ul> 
-                <br>
-                <?php
-                $listas = listProj();
-                foreach ($listas as $lista){ ?>
-                <form method="post" action="vw.visuCot.php" style="display:inline;">
-                    <ul class="list-group list-group-horizontal list-group-item-light">
-                        <input type="hidden" name="idProj" value="<?php echo $lista['idProj']; ?>">
-                        <a class="list-group-item col-sm-1" href="vw.visuCot.php"><?php echo $lista['idSol']?></a>
-                        <a class="list-group-item col-sm-8"><?php echo $lista['titulo'] ?></a>
-                        <a class="list-group-item col-sm-3"><?php echo implode('/', array_reverse(explode('-', $lista ['dtSol']))); ?></a>
-                    </ul>
-                <?php } ?>
-                </form>
-            </div>
-        </div>
 
+        <?php 
+            if(isset($_SESSION['tipo'])){
+                if($_SESSION['tipo']=='1'){?>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-11">
+                            <header class="text-center">
+                                <br>
+                                <h3>Cotações abertas</h3>
+                                <br>
+                            </header>  
+                            <ul class="list-group list-group-horizontal list-group-item-secondary text-center">
+                                <li class="list-group-item col-sm-1">ID</li>
+                                <li class="list-group-item col-sm-6">Titulo</li>
+                                <li class="list-group-item col-sm-3">Status</li>
+                                <li class="list-group-item col-sm-2">Data Criação</li>
+                            </ul> 
+                            <br>
+                            <?php
+                            $listas = listProjAdmin();
+                            foreach ($listas as $lista){ ?>
+                            <form method="get" action="vw.visuCot.php" style="display:inline;">
+                                <input type="hidden" name="idProjeto" value="<?php echo $lista['idProjeto']; ?>">
+                                <ul class="list-group list-group-horizontal list-group-item-light">
+                                    <li class="list-group-item col-sm-1">
+                                        <button type="submit" class="btn-as-text"><?php echo $lista['idSol']; ?></button>
+                                    </li>
+                                    <a class="list-group-item col-sm-6"><?php echo $lista['titulo'] ?></a>
+                                    <a class="list-group-item col-sm-3"><?php echo $lista['status'] ?></a>
+                                    <a class="list-group-item col-sm-2"><?php echo implode('/', array_reverse(explode('-', $lista ['dtSol']))); ?></a>
+                                </ul>
+                            </form>
+                            <?php } ?>
+                        </div>
+                    </div><?php
+                }
+                else if($_SESSION['tipo'] == '2'){?>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-11">
+                            <header class="text-center">
+                                <br>
+                                <h3>Cotações abertas</h3>
+                                <br>
+                            </header>  
+                            <ul class="list-group list-group-horizontal list-group-item-secondary text-center">
+                                <li class="list-group-item col-sm-1">ID</li>
+                                <li class="list-group-item col-sm-6">Titulo</li>
+                                <li class="list-group-item col-sm-3">Status</li>
+                                <li class="list-group-item col-sm-2">Data Criação</li>
+                            </ul> 
+                            <br>
+                            <?php
+                            $listas = listProj();
+                            foreach ($listas as $lista){ ?>
+                            <form method="get" action="vw.visuCot.php" style="display:inline;">
+                                <input type="hidden" name="idProjeto" value="<?php echo $lista['idProjeto']; ?>">
+                                <ul class="list-group list-group-horizontal list-group-item-light">
+                                    <li class="list-group-item col-sm-1">
+                                        <button type="submit" class="btn-as-text"><?php echo $lista['idSol']; ?></button>
+                                    </li>
+                                    <a class="list-group-item col-sm-6"><?php echo $lista['titulo'] ?></a>
+                                    <a class="list-group-item col-sm-3"><?php echo $lista['status'] ?></a>
+                                    <a class="list-group-item col-sm-2"><?php echo implode('/', array_reverse(explode('-', $lista ['dtSol']))); ?></a>
+                                </ul>
+                            </form>
+                            <?php } ?>
+                        </div>
+                    </div><?php
+                }
+                else if($_SESSION['tipo'] == '3'){?>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-11">
+                            <header class="text-center">
+                                <br>
+                                <h3>Cotações abertas</h3>
+                                <br>
+                            </header>  
+                            <ul class="list-group list-group-horizontal list-group-item-secondary text-center">
+                                <li class="list-group-item col-sm-1">ID</li>
+                                <li class="list-group-item col-sm-6">Titulo</li>
+                                <li class="list-group-item col-sm-3">Status</li>
+                                <li class="list-group-item col-sm-2">Data Criação</li>
+                            </ul> 
+                            <br>
+                            <?php
+                            $listas = listProj();
+                            foreach ($listas as $lista){ ?>
+                            <form method="get" action="vw.visuCot.php" style="display:inline;">
+                                <input type="hidden" name="idProjeto" value="<?php echo $lista['idProjeto']; ?>">
+                                <input type="hidden" name="idSol" value="<?php echo $lista['idSol']; ?>">
+                                <ul class="list-group list-group-horizontal list-group-item-light">
+                                    <li class="list-group-item col-sm-1">
+                                        <button type="submit" class="btn-as-text"><?php echo $lista['idSol']; ?></button>
+                                    </li>
+                                    <a class="list-group-item col-sm-6"><?php echo $lista['titulo'] ?></a>
+                                    <a class="list-group-item col-sm-3"><?php echo $lista['status'] ?></a>
+                                    <a class="list-group-item col-sm-2"><?php echo implode('/', array_reverse(explode('-', $lista ['dtSol']))); ?></a>
+                                </ul>
+                            </form>
+                            <?php } ?>
+                        </div>
+                    </div><?php
+                }
+            }
+        ?>
         <br>
         <br>
         <br>

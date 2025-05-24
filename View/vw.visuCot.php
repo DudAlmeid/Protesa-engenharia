@@ -6,23 +6,11 @@
     include '..\controller\c.login.php';
     include '../model/projeto.factory.php';
     require "../template/fct.php";
-    $id = $_SESSION['id'];
-    if (isset($_GET['idProj'])) {
-        $idProjeto = $_GET['idProj'];
-    } elseif (isset($_POST['idProj'])) {
-        $idProjeto = $_POST['idProj'];
-    } else {
-        $idProjeto = null;
-    }
-    if (!$idProjeto || !is_numeric($_POST['idProj'])) {
-    die("ID do projeto inválido.");
-}
-    echo "ID recebido: " . $_POST['idProj'];
-
+    $idProj = $_GET['idProjeto'];
     ?>
     
     <head>
-        <title>Projeto <?php echo $idProjeto ?> | PROTESA ENGENHARIA</title>
+        <title>Projeto <?php echo $idProj ?> | PROTESA ENGENHARIA</title>
         <?php init(); ?>
     </head>
     <body>
@@ -81,7 +69,7 @@
         }
 
         .mensagem.usuario {
-            background-color:rgb(255, 255, 255);
+            background-color:rgba(255, 174, 25, 0.14);
             border-left: 4px solid #ffaf19;
             align-self: flex-start;
             margin-left: 0;
@@ -89,7 +77,7 @@
         }
 
         .mensagem.tecnico {
-            background-color:rgb(255, 255, 255);
+            background-color:rgba(0, 0, 0, 0.06);
             border-right: 4px solid black;
             align-self: flex-end;
             margin-left: auto;
@@ -120,6 +108,12 @@
             resize: vertical;
             font-size: 12px;
         }
+        .formulario-resposta{
+            max-width: 99%;
+            margin: 10px auto;
+            padding: 30px;
+            background-color:rgba(50, 52, 53, 0.14);
+        }
 
         </style>
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -138,8 +132,41 @@
             }
         ?>
         <!--menu lateral-->
-        <?php menuProj($idProjeto);?>
-        <?php msgProj($idProjeto);?>
+        <?php menuProj($idProj);?>
+        <?php msgProj($idProj);?>
+
+        <div class='formulario-resposta'>
+            <label>Responder</label>
+            <form action='../controller/c.atChamado.php' method='POST' enctype="multipart/form-data">
+                <textarea name='tramite' rows='4' placeholder='Digite sua mensagem...' required></textarea>
+                <br><br>
+                 <div class="col-md-12">
+                    <label>Status solicitação:</label>
+                    <select name="idStatus" class="form-control form-control-sm">
+                        <option value="">Selecione...</option>
+                        <?php
+                            $allstatus = getStatus();
+                            foreach ($allstatus as $status){
+                            ?>
+                            <option value="<?php echo $status['idStatus'] ?>">
+                                    <?php echo $status['nmStatus'] ?>     
+                            </option>
+                            <?php $idStatus == $status['idStatus'];?>
+                            <?php 
+                            }
+                        ?>
+                    </select>
+                </div>
+                <br>
+                <label for='arquivo'>Anexar Documento:</label>
+                <input type='file' name='docAnx' class="input-anexo" id='docAnx' class='form-control-file'>
+                <br>
+                <label for='arquivo'>Anexar Imagens:</label>
+                <input type='file' name='imgAnx' class="input-anexo" id='imgAnx' class='form-control-file'>
+                <input type='hidden' name='idProj' value="<?php echo $idProj ?>"> 
+                <input type='submit' class='btn btn-primary btn-block mb-4' value='Enviar'>
+            </form>
+        </div>
         <?php footer(); ?>
     </body>
 </html>

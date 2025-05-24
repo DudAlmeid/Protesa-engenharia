@@ -24,13 +24,26 @@
         public $situacao;
         public $status;
         public $idSol;
+        public $idItem;
+        public $dtTramite;
+        public $tramite;
+        public $userTramite;
+        public $docAnx;
+        public $imgAnx;
 
-        function __construct($idProjeto, $idTec, $situacao, $status,$idSol){
+
+        function __construct($idProjeto, $idTec, $situacao, $status,$idSol,$idItem,$tramite,$userTramite,$dtTramite,$docAnx,$imgAnx){
         $this->idProjeto = $idProjeto;
         $this->idUserTecnico = $idTec;
         $this->idSituacaoProjeto = $situacao;
         $this->idStatusSolicitacao = $status;
         $this->idSolicitacaoProjeto = $idSol;
+        $this->idItemProjeto = $idItem;
+        $this->dsItemProjeto = $tramite;
+        $this->dtItemProjeto = $dtTramite;
+        $this->idItemUser = $userTramite;
+        $this->docItemProjeto = $docAnx;
+        $this->imgItemProjeto = $imgAnx;
         }
     }
 ?>

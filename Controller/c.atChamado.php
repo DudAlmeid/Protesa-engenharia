@@ -1,0 +1,58 @@
+<?php
+include "../model/connection.php";
+include "../model/projeto.factory.php";
+include "../controller/c.login.php";
+require "../template/fct.php";
+
+$userTramite = $_SESSION['id'];
+
+date_default_timezone_set('America/Sao_Paulo');
+$dtTramite = date('Y-m-d H:i:s');
+
+$docNomeFinal = null;
+$imgNomeFinal = null;
+$caminho_base = '../Files_Protesa/';
+$diretorio = $caminho_base . "chamado_" . $_POST['idProj'] . "/";
+if (!file_exists($diretorio)) {
+    if (!mkdir($diretorio, 0777, true)) {
+        die("Erro ao criar diretório: $diretorio");
+    }
+}
+
+// IMAGEM
+if (isset($_FILES['imgAnx']) && $_FILES['imgAnx']['error'] == 0) {
+    $ext = strtolower(pathinfo($_FILES['imgAnx']['name'], PATHINFO_EXTENSION));
+    if (in_array($ext, array('jpg', 'jpeg', 'png'))) {
+        $imgNomeFinal = uniqid('img_') . '.' . $ext;
+        if (!move_uploaded_file($_FILES['imgAnx']['tmp_name'], $diretorio . $imgNomeFinal)) {
+            die("Erro ao mover imagem.");
+        }
+    } else {
+        die("Extensão da imagem inválida.");
+    }
+}
+
+// DOCUMENTO
+if (isset($_FILES['docAnx']) && $_FILES['docAnx']['error'] == 0) {
+    $ext = strtolower(pathinfo($_FILES['docAnx']['name'], PATHINFO_EXTENSION));
+    if (in_array($ext, array('doc', 'docx', 'pdf', 'xlsx'))) {
+        $docNomeFinal = uniqid('doc_') . '.' . $ext;
+        if (!move_uploaded_file($_FILES['docAnx']['tmp_name'], $diretorio . $docNomeFinal)) {
+            die("Erro ao mover documento.");
+        }
+    } else {
+        die("Extensão do documento inválida.");
+    }
+}
+
+// BANCO
+$tramite = new projeto();
+if ($tramite->addTramite($dtTramite, $_POST['tramite'], $userTramite, $docNomeFinal, $imgNomeFinal, $_POST['idProj'])) {
+    $tramite->statusP($_POST['idStatus'], $_POST['idProj']);
+    echo $_POST['idStatus'];
+    header("Location: ../view/vw.contrato.php");
+    exit;
+} else {
+    echo "Erro ao salvar no banco.";
+}
+?>
