@@ -27,9 +27,9 @@
                 </header>  
                 <ul class="list-group list-group-horizontal list-group-item-secondary text-center">
                     <li class="list-group-item col-sm-1">ID</li>
-                    <li class="list-group-item col-sm-5">Nome</li>
-                    <li class="list-group-item col-sm-1">CPF</li>
-                    <li class="list-group-item col-sm-3">Empresa</li>
+                    <li class="list-group-item col-sm-3">Nome</li>
+                    <li class="list-group-item col-sm-2">CPF</li>
+                    <li class="list-group-item col-sm-4">Empresa</li>
                     <li class="list-group-item col-sm-1">Perfil</li>
                     <li class="list-group-item col-sm-1">Situação</li>
 
@@ -39,9 +39,9 @@
                 foreach ($list as $lista){ ?>
                     <ul class="list-group list-group-horizontal list-group-item-light">
                         <a class="list-group-item col-sm-1" href="vw.perfil.php"><?php echo $lista['idUser']?></a>
-                        <a class="list-group-item col-sm-5"><?php echo $lista['nome'] ?></a>
-                        <a class="list-group-item col-sm-1 text-center"><?php echo $lista['cpf'] ?></a>
-                        <a class="list-group-item col-sm-3"><?php echo $lista['empresa'] ?></a>
+                        <a class="list-group-item col-sm-3"><?php echo $lista['nome'] ?></a>
+                        <a class="list-group-item col-sm-2 text-center"><?php echo $lista['cpf'] ?></a>
+                        <a class="list-group-item col-sm-4"><?php echo $lista['empresa'] ?></a>
                         <a class="list-group-item col-sm-1 text-center"><?php echo $lista['perfil'] ?></a>
                         <a class="list-group-item col-sm-1 text-center"><?php echo $lista['situacao'] ?></a>
                     </ul>

@@ -95,7 +95,7 @@ function listProj(){
     $sql = "SELECT sol.idSolicitacao as 'idSol', sol.nmTituloSolicitacao as 'titulo', st.nmStatus as 'status', sol.dtSolicitacao as 'dtSol', p.idProjeto as 'idProjeto' from tb_solicitacao as sol 
             inner join tb_projeto p on sol.idSolicitacao = p.idSolicitacaoProjeto 
             inner join tb_item_status st on p.idStatusProjeto = st.idStatus
-            where sol.idStatusSolicitacao !=1 and p.idUserTecnico = $idUser || sol.idUserSolicitacao = $idUser";
+            where sol.idStatusSolicitacao NOT IN (1, 8) AND p.idStatusProjeto NOT IN (1, 8) and p.idUserTecnico = $idUser || sol.idUserSolicitacao = $idUser";
     $res = $mysqli->query($sql);
     if (!$res) {
         // Se houver erro na consulta, pode retornar false ou tratar o erro
@@ -121,7 +121,7 @@ function listProjAdmin(){
     $sql = "SELECT sol.idSolicitacao as 'idSol', st.nmStatus as 'status', sol.nmTituloSolicitacao as 'titulo', sol.dtSolicitacao as 'dtSol', p.idProjeto as 'idProjeto' from tb_solicitacao as sol 
             inner join tb_projeto p on sol.idSolicitacao = p.idSolicitacaoProjeto 
             inner join tb_item_status st on p.idStatusProjeto = st.idStatus
-            where idStatusSolicitacao !=1";
+            where sol.idStatusSolicitacao NOT IN (1, 8) AND p.idStatusProjeto NOT IN (1, 8)";
     $res = $mysqli->query($sql);
     if (!$res) {
         // Se houver erro na consulta, pode retornar false ou tratar o erro

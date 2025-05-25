@@ -55,4 +55,23 @@ if ($tramite->addTramite($dtTramite, $_POST['tramite'], $userTramite, $docNomeFi
 } else {
     echo "Erro ao salvar no banco.";
 }
+
+if(isset($_POST['idStatus'])){
+    if($_POST['idStatus'] == 8){
+        $cancela = new cotacao();
+            if ($cancela->cancelaSol($idSol)) {
+        // Atualiza status da solicitação
+        header("Location: ../view/vw.solicitacao.php");
+        exit;
+        } else {
+            echo "<script> alert('Erro ao inserir dados, tente novamente');</script>";
+            if (mysqli_connect_errno()) {
+                trigger_error(mysqli_connect_error());
+            }
+        }
+        } else {
+            echo "<script>alert('Solicitação inválida');</script>";     
+        }
+    }
+
 ?>

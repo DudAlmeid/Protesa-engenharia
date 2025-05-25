@@ -49,6 +49,11 @@
             $sql = "insert into tb_item_projeto (dtItemProjeto,dsItemProjeto,idItemUser,docItemProjeto,imgItemProjeto,idProjeto) values ('$dtTramite','$tramite','$userTramite','$docAnx','$imgAnx','$idProj')";
             return $this->con->query($sql);
         }
+
+        function restSt($idProj){
+            $sql = "update tb_projeto SET idStatusProjeto = '1' where idProjeto = '$idProj'";
+            return $this->con->query($sql);
+        }
     }
 
     function menuProj($idProj){
@@ -168,5 +173,55 @@
     echo "
         </div>
         ";
+    }
+
+    function solCancelados(){
+        $con = $GLOBALS["con"];
+    $sql = "SELECT s.idSolicitacao as 'idSol', st.nmStatus as 'status', s.nmTituloSolicitacao as 'titulo', s.dtSolicitacao as 'dtSol' FROM tb_solicitacao as s
+            inner join tb_item_status st on st.idStatus = s.idStatusSolicitacao
+            WHERE idStatusSolicitacao = 8";
+    $mysqli = datacon();
+    if (!$mysqli) {
+        return false;
+    }
+    $res = $mysqli->query($sql);
+    if (!$res) {
+        return false;
+    }
+    $data = [];
+    while ($row = $res->fetch_assoc()) {        
+        $data[] = $row;
+        $idSol = $row['idSol'];
+        $status = $row['status'];
+        $titulo = $row['titulo'];
+        $dt = $row['dtSol'];
+    }
+    return $data; 
+    }
+
+    function projCancelados(){
+        $mysqli = datacon(); 
+        if (!$mysqli) {
+            return [];
+        }
+        $sql = "SELECT s.idSolicitacao as 'idSol', p.idProjeto as 'idProj', st.nmStatus as 'status', s.nmTituloSolicitacao as 'titulo', s.dtSolicitacao as 'dtSol' FROM tb_solicitacao as s
+                inner join tb_projeto p on p.idSolicitacaoProjeto = s.idSolicitacao
+                inner join tb_item_status st on st.idStatus = p.idStatusProjeto
+                WHERE p.idStatusProjeto = 8";
+        $res = $mysqli->query($sql);
+        if (!$res) {
+            return [];
+        }
+
+        $data = [];
+        while ($row = $res->fetch_assoc()) {        
+            $data[] = $row;
+            $idSol = $row['idSol'];
+            $idProj = $row['idProj'];
+            $status = $row['status'];
+            $titulo = $row['titulo'];
+            $dt = $row['dtSol'];
+        }
+        return $data; 
     }
 ?>

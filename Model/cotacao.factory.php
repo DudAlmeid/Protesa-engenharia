@@ -57,15 +57,19 @@
             return $this->con->query($sql);
         }
 
-       function cancelSol($idSolicitacao){
+       function cancelaSol($idSolicitacao){
             $sql = "update tb_solicitacao SET idStatusSolicitacao = '8' where idSolicitacao = '$idSolicitacao'";
+            return $this->con->query($sql);
+       }
+       function restSt($idSolicitacao){
+            $sql = "update tb_solicitacao SET idStatusSolicitacao = '1' where idSolicitacao = '$idSolicitacao'";
             return $this->con->query($sql);
        }
     }
     
     function SolicAberta() {
     $con = $GLOBALS["con"];
-    $sql = "SELECT * FROM tb_solicitacao WHERE idStatusSolicitacao = 1";
+    $sql = "SELECT * FROM tb_solicitacao WHERE idStatusSolicitacao = 1 || idStatusSolicitacao != 8";
     $query = $con->query($sql);
 
     echo "
@@ -105,7 +109,7 @@
 
     function SolicAbertaCli($id) {
     $con = $GLOBALS["con"];
-    $sql = "SELECT * FROM tb_solicitacao where idUserSolicitacao='$id' and idStatusSolicitacao =1";
+    $sql = "SELECT * FROM tb_solicitacao where idUserSolicitacao='$id' and idStatusSolicitacao =1 || idStatusSolicitacao != 8";
     $query = $con->query($sql);
 
     echo "
@@ -118,7 +122,7 @@
                 $dataSol = $row["dtSolicitacao"];
                 echo "
                 <div class='col-md-3 mb-3'> <!-- 4 cards por linha -->
-                    <form method='POST' action='../view/vw.visuCot.php'>
+                    <form method='POST' action='../controller/c.cancelSol.php'>
                         <div class='card card-fixa h-1000'> <!-- h-100 para altura igual -->
                             <div class='card-body'>
                                 <h6 class='h6-peq text-end'>ID: ".$idSol."</h6>
@@ -127,7 +131,7 @@
                             </div>
                             <div class='card-footer'>
                                 <input type='hidden' name='idSolicitacao' value='".$idSol."'>
-                                <button type='submit' class='btn btn-primary btn-block mb-4'>Visualizar</button>
+                                <button type='submit' class='btn btn-primary btn-block mb-4'>Cancelar Solicitação</button>
                             </div>
                             <div class='card-footer'>
                                 <small class='text-muted'>Solicitado em: ".implode('/', array_reverse(explode('-', $dataSol)))."</small>

@@ -163,7 +163,7 @@
                 <br>
                 <label for='arquivo'>Anexar Imagens:</label>
                 <input type='file' name='imgAnx' class="input-anexo" id='imgAnx' class='form-control-file'>
-                <input type='hidden' name='idProj' value="<?php echo $idProj ?>"> 
+                <input type='hidden' name='idProj' value="<?php echo $idProj ?>">  
                 <input type='submit' class='btn btn-primary btn-block mb-4' value='Enviar'>
             </form>
         </div>
