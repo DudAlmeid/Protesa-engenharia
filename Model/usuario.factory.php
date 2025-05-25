@@ -40,34 +40,48 @@
         return $resultados;
     };
 
-    function vwUser(){ //view admin
+    function vwUser($id){ //view admin
         $con = $GLOBALS["con"];
-        $sql = "SELECT * FROM tb_cad_user";
+        $sql = "SELECT u.*, e.nmRazaoSocial as 'empresa' FROM tb_cad_user as u 
+                inner join tb_cad_empresa e on u.idEmpresa = e.idEmpresa
+                where idUser =".$id;
+
         $query = $con->query($sql);
-        echo '<p>Registros encontrados: '.$query->num_rows.'</p>';
-        while($sql = $query->fetch_array()){
-            $idUser = $sql["idUser"];
-            $nome= $sql["nmUser"];
-            $login= $sql["nmLoginUser"];
-            $senha= $sql["nmSenhaUser"];            
-            $cpf= $sql["idCPF"];
-            $empresa= $sql["idEmpresa"];
-            $telefone= $sql["idTelefone"];
-            $situacao= $sql["icSituacaoUser"];     
-            $perfil = $sql["idPerfil"];         
+        if (!$query) {
+            die("Erro na query: " . $con->error);
+        }
+
+        while($row = $query->fetch_array()){
+            $idUser = $row["idUser"];
+            $nome= $row["nmUser"];
+            $login= $row["nmLoginUser"];
+            $senha= $row["nmSenhaUser"];
+            $cpf= $row["idCPF"];
+            $empresa= $row["empresa"];
+            $telefone= $row["idTelefone"];
+            $situacao= $row["icSituacaoUser"];
+            $perfil = $row["idPerfil"];  
+            if($situacao == 1){
+                $aux = 1;
+                $ck = "checked";
+            }
+            else if($situacao == 0){
+                $aux = 0;
+                $ck = "";
+            }       
             echo "
-                <form class=''form-horizontal action='..\controller\c.updPerfil.php' method='POST'>
+                <form class='form-horizontal' action='..\controller\c.updAdm.php' method='POST'>
                     <div class='row align-items-center'>
                         <div class='form-group col-md-1'>
                             <label for='nomeUser'>ID</label>
-                            <input type='text' class='form-control form-control-sm' readonly name='nome' id='nmUser' placeholder=". $idUser.">
+                            <input type='text' class='form-control form-control-sm' readonly name='idUser' id='nmUser' value=". $idUser.">
                         </div>
                         <div class='form-group col-md-8'>
                             <label for='nomeUser'>Nome Completo</label>
-                            <input type='text' class='form-control form-control-sm' readonly name='nome' id='nmUser' placeholder=".$nome.">
+                            <input type='text' class='form-control form-control-sm' name='nome' id='nmUser' value=\"$nome\">
                         </div>
                         <div class='form-checkIC col-md-3 align-self-center'>
-                            <input class='form-check-input'  type='checkbox' value='1' id='icSituacaoUser' name='situacao'>
+                            <input class='form-check-input'  type='checkbox' $ck value='$aux' id='icSituacaoUser' name='situacao'>
                             <label class='form-check-labelform-control-sm' for='icSituacaoUser'>Ativo</label>
                         </div>
                     </div>
@@ -75,33 +89,33 @@
                     <div class='row'>
                         <div class='form-group col-md-4'>
                             <label for='cpfUser'>CPF Usuário</label>
-                            <input type='text' class='form-control form-control-sm' onkeydown='javascript:fncMasc(this, mscCPF),validaCPF(this,mscCPF);' id='idCpf' name='cpf' min='11' maxlength='11' required placeholder=".$cpf.">
+                            <input type='text' class='form-control form-control-sm' readonly id='idCpf' value='$cpf' name='cpf' min='11' maxlength='11' required placeholder=".$cpf.">
                         </div>
                         <div class='form-group col-md-4'>
                             <label for='loginUser'>Login do Usuário</label>
-                            <input type='text' class='form-control form-control-sm' id='nmLoginUser' name='login' placeholder=".$login.">
+                            <input type='text' class='form-control form-control-sm' id='nmLoginUser' name='login' value=".$login.">
                         </div>
                         <div class='form-group col-md-4'>
                             <label for='senhaUser'>Senha do Usuário</label>
-                            <input type='password' class='form-control form-control-sm' id='nmSenhaUser' name='senha' placeholder=".$senha.">
+                            <input type='password' class='form-control form-control-sm' id='nmSenhaUser' name='senha' value=".$senha.">
                         </div>
                     </div>
                     <br>
                     <div class='row'>
                         <div class='form-group col-md-8'>
                             <label for='idEmpresa'>Empresa</label>
-                            <input type='text' class='form-control form-control-sm' readonly name='empresa' id='idEmpresa' placeholder=".$empresa.">
+                            <input type='text' class='form-control form-control-sm' readonly name='empresa' id='idEmpresa' placeholder=\"$empresa   \">
                         </div>
                         <div class='form-group col-md-4'>
                             <label for='idTelefone'>Telefone Contato</label>
-                            <input type='tel' class='form-control form-control-sm' name='telefone' id='idTelefone' minlength='15' maxlength='15' onkeydown='javascript: fctMasc( this, mscTel );' required value='(13) 9' placeholder=".$telefone.">
+                            <input type='tel' class='form-control form-control-sm' name='telefone' id='idTelefone' minlength='15' maxlength='15' onkeydown='javascript: fctMasc( this, mscTel );'  value=\"$telefone\">
                         </div>
                     </div>
                     <br>
                     <br>
                     <div class='row align-items-center'>
                         <div class='col-md-12 d-flex justify-content-start gap-2'>
-                            <a type='reset' class='btn btn-primary btn-block mb-4' href='../view/vw.contrato.php' value='Cancelar'>Cancelar Edição</a>
+                            <a type='reset' class='btn btn-primary btn-block mb-4' href='../view/vw.perfilUser.php' value='Cancelar'>Cancelar Edição</a>
                             <button type='submit' class='btn btn-primary btn-block mb-4' value='Salvar'>Salvar Alterações</button>
                         </div>
                     </div>
@@ -113,7 +127,9 @@
 
     function vwOwner($id){ //view user
         $con = $GLOBALS["con"];
-        $sql = "SELECT * FROM tb_cad_user where idUser =".$id;
+        $sql = "SELECT u.*, e.nmRazaoSocial as 'empresa' FROM tb_cad_user as u 
+                inner join tb_cad_empresa e on u.idEmpresa = e.idEmpresa
+                where idUser =".$id;
         $query = $con->query($sql);
         while($sql = $query->fetch_array()){
             $idUser = $sql["idUser"];
@@ -121,7 +137,7 @@
             $login= $sql["nmLoginUser"];
             $senha= $sql["nmSenhaUser"];            
             $cpf= $sql["idCPF"];
-            $empresa= $sql["idEmpresa"];
+            $empresa= $sql["empresa"];
             $telefone= $sql["idTelefone"];
             $situacao= $sql["icSituacaoUser"]; 
             if ($situacao == 1){
@@ -140,10 +156,10 @@
                         </div>
                         <div class='form-group col-md-9'>
                             <label for='nomeUser'>Nome Completo</label>
-                            <input type='text' class='form-control form-control-sm' readonly name='nome' id='nmUser' placeholder=".$nome.">
+                            <input type='text' class='form-control form-control-sm'  name='nome' id='nmUser' placeholder=".$nome.">
                         </div>
                         <div class='form-checkIC col-md-2 align-self-center'>
-                            <input class='form-check-input' type='checkbox' name='situacao' disabled id='icSituacaoUser' value=".$situacao." ".$ck.">
+                            <input class='form-check-input' type='checkbox' name='situacao' id='icSituacaoUser' value=".$situacao." ".$ck.">
                             <label class='form-check-labelform-control-sm' for='icSituacaoUser'>Ativo</label>
                         </div>
                     </div>
@@ -151,7 +167,7 @@
                     <div class='row'>
                         <div class='form-group col-md-4'>
                             <label for='loginUser'>Login do Usuário</label>
-                            <input type='text' class='form-control form-control-sm' id='nmLoginUser' readonly name='login' placeholder=".$login.">
+                            <input type='text' class='form-control form-control-sm' id='nmLoginUser' name='login' placeholder=".$login.">
                         </div>
                         <div class='form-group col-md-4'>
                             <label for='cpfUser'>CPF Usuário</label>
@@ -159,7 +175,7 @@
                         </div>
                         <div class='form-group col-md-4'>
                             <label for='idEmpresa'>Empresa</label>
-                            <input type='text' class='form-control form-control-sm' readonly name='empresa' id='idEmpresa' placeholder=".$empresa.">
+                            <input type='text' class='form-control form-control-sm' name='empresa' id='idEmpresa' placeholder=".$empresa.">
                         </div>
                     </div>
                     <br>
@@ -244,6 +260,11 @@
         function status($idUser)
         {
             $sql = "update tb_cad_user SET icSituacaiUser = 0 where idUser = '$idUser'";
+            return $this->con->query($sql);
+        }
+
+        function edituser($nmUser,$icSituacaoUser,$nmLoginUser,$nmSenhaUser,$telefone,$cpf){
+            $sql = "update tb_cad_user set nmUser = '$nmUser',  icSituacaoUser = '$icSituacaoUser', nmLoginUser = '$nmLoginUser', nmSenhaUser = '$nmSenhaUser', idTelefone = '$telefone' where idCPF = '$cpf'";
             return $this->con->query($sql);
         }
     }

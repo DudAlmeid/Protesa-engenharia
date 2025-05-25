@@ -69,7 +69,7 @@
     
     function SolicAberta() {
     $con = $GLOBALS["con"];
-    $sql = "SELECT * FROM tb_solicitacao WHERE idStatusSolicitacao = 1 || idStatusSolicitacao != 8";
+    $sql = "SELECT * FROM tb_solicitacao WHERE idStatusSolicitacao = 1 and idStatusSolicitacao not in (8)";
     $query = $con->query($sql);
 
     echo "
@@ -109,7 +109,7 @@
 
     function SolicAbertaCli($id) {
     $con = $GLOBALS["con"];
-    $sql = "SELECT * FROM tb_solicitacao where idUserSolicitacao='$id' and idStatusSolicitacao =1 || idStatusSolicitacao != 8";
+    $sql = "SELECT * FROM tb_solicitacao where idUserSolicitacao='$id' and idStatusSolicitacao =1 and idStatusSolicitacao not in (8)";
     $query = $con->query($sql);
 
     echo "

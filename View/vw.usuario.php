@@ -37,14 +37,19 @@
                 <?php
                 $list = listUser();
                 foreach ($list as $lista){ ?>
+                <form method="get" action="vw.perfilUser.php" style="display:inline;">
+                    <input type="hidden" name="idUser" value="<?php echo $lista['idUser']; ?>">
                     <ul class="list-group list-group-horizontal list-group-item-light">
-                        <a class="list-group-item col-sm-1" href="vw.perfil.php"><?php echo $lista['idUser']?></a>
+                        <li class="list-group-item col-sm-1">
+                            <button type="submit" class="btn-as-text"><?php echo $lista['idUser']; ?></button>
+                        </li>
                         <a class="list-group-item col-sm-3"><?php echo $lista['nome'] ?></a>
                         <a class="list-group-item col-sm-2 text-center"><?php echo $lista['cpf'] ?></a>
                         <a class="list-group-item col-sm-4"><?php echo $lista['empresa'] ?></a>
                         <a class="list-group-item col-sm-1 text-center"><?php echo $lista['perfil'] ?></a>
                         <a class="list-group-item col-sm-1 text-center"><?php echo $lista['situacao'] ?></a>
                     </ul>
+                </form>
                 <?php } ?>
             </div>
         </div>

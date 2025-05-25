@@ -56,8 +56,8 @@
                             <?php
                             $solicitacoes = solCancelados();
                             foreach ($solicitacoes as $sol){   $modalId = "modalRest_" . $sol['idSol'];?>
-                            <form method="get" action="../controller/c.cRest.php" style="display:inline;">
-                                <input type="hidden" name="idProjeto" value="<?php echo $sol['idProjeto']; ?>">
+                            <form method="post" action="../controller/c.cRest.php" style="display:inline;">
+                                <input type="hidden" name="idSol" value="<?php echo $sol['idSol']; ?>">
                                 <ul class="list-group list-group-horizontal list-group-item-light">
                                    <li class="list-group-item col-sm-1">
                                         <button type="button" class="btn-as-text" data-toggle="modal" data-target="#<?php echo $modalId; ?>">

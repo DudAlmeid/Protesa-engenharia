@@ -67,7 +67,10 @@
                                     </li>
                                     <li class='nav-item active'>
                                         <a class='nav-link' href='../view/vw.perfil.php'>Perfil</a>
-                                    </li>                                   
+                                    </li>      
+                                    <li class='nav-item active'>
+                                        <a class='nav-link' href='../view/vw.chCancelado.php'>Cancelamentos</a>
+                                    </li>                             
                                     <li>
                                         <a class='nav-link me-2' href='../controller/c.logout.php'><span class='ti-close'></span>&nbspSair</a>
                                     </li>
