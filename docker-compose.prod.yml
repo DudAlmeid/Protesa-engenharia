@@ -1,0 +1,59 @@
+services:
+  # Aplicação PHP (PRODUÇÃO - código dentro da imagem)
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/Files_Protesa:/var/www/html/src/Files_Protesa
+    depends_on:
+      - db
+    networks:
+      - protesa-network
+    environment:
+      - DB_HOST=db
+      - DB_NAME=db_protesa
+      - DB_USER=root
+      - DB_PASSWORD=protesa123
+
+  # Banco de dados MySQL
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: protesa123
+      MYSQL_DATABASE: db_protesa
+      MYSQL_USER: protesa_user
+      MYSQL_PASSWORD: protesa123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - protesa-network
+
+  # phpMyAdmin para gerenciar o banco
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: protesa123
+    depends_on:
+      - db
+    networks:
+      - protesa-network
+
+volumes:
+  mysql_data:
+
+networks:
+  protesa-network:
+    driver: bridge

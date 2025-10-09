@@ -1,0 +1,70 @@
+services:
+  # Aplicação PHP
+  app:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      # Mapear toda a estrutura src para o lugar correto
+      - ./src:/var/www/html/src
+      - ./index.php:/var/www/html/index.php
+      # Se tiver outros arquivos na raiz, adicione:
+      - ./apache.conf:/etc/apache2/sites-available/000-default.conf
+    depends_on:
+      - db
+    networks:
+      - protesa-network
+    environment:
+      - DB_HOST=db
+      - DB_NAME=db_protesa
+      - DB_USER=root
+      - DB_PASSWORD=protesa123
+
+  # Banco de dados MySQL (mantenha igual)
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: protesa123
+      MYSQL_DATABASE: db_protesa
+      MYSQL_USER: protesa_user
+      MYSQL_PASSWORD: protesa123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - protesa-network
+    command: 
+      - --init-file
+      - /docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pprotesa123"]
+      timeout: 20s
+      retries: 10
+
+  # phpMyAdmin (mantenha igual)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    platform: linux/amd64
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: protesa123
+    depends_on:
+      - db
+    networks:
+      - protesa-network
+
+volumes:
+  mysql_data:
+
+networks:
+  protesa-network:
+    driver: bridge
