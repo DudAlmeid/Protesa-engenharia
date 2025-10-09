@@ -82,7 +82,7 @@
                 $dataSol = $row["dtSolicitacao"];
                 echo "
                 <div class='col-md-3 mb-3'> <!-- 4 cards por linha -->
-                    <form method='POST' action='../controller/c.atribueSol.php'>
+                    <form method='POST' action='/src/controller/c.atribueSol.php'>
                         <div class='card card-fixa h-1000'> <!-- h-100 para altura igual -->
                             <div class='card-body'>
                                 <h6 class='h6-peq text-end'>ID: ".$idSol."</h6>
@@ -122,7 +122,7 @@
                 $dataSol = $row["dtSolicitacao"];
                 echo "
                 <div class='col-md-3 mb-3'> <!-- 4 cards por linha -->
-                    <form method='POST' action='../controller/c.cancelSol.php'>
+                    <form method='POST' action='/src/controller/c.cancelSol.php'>
                         <div class='card card-fixa h-1000'> <!-- h-100 para altura igual -->
                             <div class='card-body'>
                                 <h6 class='h6-peq text-end'>ID: ".$idSol."</h6>

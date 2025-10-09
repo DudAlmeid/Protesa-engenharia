@@ -69,7 +69,7 @@
                 $ck = "";
             }       
             echo "
-                <form class='form-horizontal' action='../controller/c.updAdm.php' method='POST'>
+                <form class='form-horizontal' action='/src/controller/c.updAdm.php' method='POST'>
                     <div class='row align-items-center'>
                         <div class='form-group col-md-1'>
                             <label for='nomeUser'>ID</label>
@@ -147,7 +147,7 @@
             };
             $perfil = $sql["idPerfil"];         
             echo "
-                <form class=''form-horizontal action='../controller/c.updPerfil.php' method='POST'>
+                <form class=''form-horizontal action='/src/controller/c.updPerfil.php' method='POST'>
                     <div class='row align-items-center'>
                         <div class='form-group col-md-1'>
                             <label for='nomeUser'>ID</label>

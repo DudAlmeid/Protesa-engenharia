@@ -128,7 +128,7 @@ if (empty($_SESSION['logado']) || $_SESSION['logado'] !== true) {
                                             </div>
                                             <br>
                                             <div class="col-md-12 d-flex justify-content-start gap-2">
-                                                <a type="reset" class="btn btn-primary btn-block mb-4" href="../view/vw.usuario.php" value="Cancelar">Cancelar</a>
+                                                <a type="reset" class="btn btn-primary btn-block mb-4" href="/src/view/vw.usuario.php" value="Cancelar">Cancelar</a>
                                                 <button type="submit" class="btn btn-primary btn-block mb-4" value="Enviar">Cadastrar</button>
                                             </div>
                                         </form>
@@ -174,7 +174,7 @@ if (empty($_SESSION['logado']) || $_SESSION['logado'] !== true) {
                                             <br>
                                             <br>
                                             <div class="col-md-12 d-flex justify-content-start gap-2">
-                                                <a type="reset" class="btn btn-primary btn-block mb-4" href="../view/vw.usuario.php" value="Cancelar">Cancelar</a>
+                                                <a type="reset" class="btn btn-primary btn-block mb-4" href="/src/view/vw.usuario.php" value="Cancelar">Cancelar</a>
                                                 <button type="submit" class="btn btn-primary btn-block mb-4" value="Enviar">Cadastrar</button>
                                             </div>
                                         </form>

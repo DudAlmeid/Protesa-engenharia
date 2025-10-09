@@ -8,20 +8,20 @@
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css' rel='stylesheet'>
         <link href='https://getbootstrap.com/docs/5.3/assets/css/docs.css' rel='stylesheet'>
-        <link rel='icon' href='../template/img/icon.png'/>
-        <link rel='stylesheet' type='text/css' media='screen' href='../template/css/bootstrap.css' />
-        <link rel='stylesheet' type='text/css' media=screen href='../template/css/estilo.css' />
-        <link rel='stylesheet' href='../template/css/themify-icons/themify-icons.css'>
-        <link rel='stylesheet' href='../template/css/bootstrap-icons-1.11.3/font/bootstrap-icons.css'>
-        <script src='../template/js/bootstrap.js'></script>
+        <link rel='icon' href='/src/template/img/icon.png'/>
+        <link rel='stylesheet' type='text/css' media='screen' href='/src/template/css/bootstrap.css' />
+        <link rel='stylesheet' type='text/css' media=screen href='/src/template/css/estilo.css' />
+        <link rel='stylesheet' href='/src/template/css/themify-icons/themify-icons.css'>
+        <link rel='stylesheet' href='/src/template/css/bootstrap-icons-1.11.3/font/bootstrap-icons.css'>
+        <script src='/src/template/js/bootstrap.js'></script>
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>";
     }
     function navbar(){
         echo "
             <nav class='navbar navbar-expand-md sticky-top navbar-dark bg-dark'>  
                 <div class='container-fluid'>
-                    <a class='navbar-brand' href='../view/index.php'>
-                        <img src='../template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
+                    <a class='navbar-brand' href='/src/view/index.php'>
+                        <img src='/src/template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
                     </a>
                     <!--menu responsivo-->
                     <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#menu' aria-controls='menu' aria-expanded='false' aria-label='Toggle navigation'>
@@ -30,10 +30,10 @@
                     <div class='collapse navbar-collapse' id='menu'>
                         <ul class='navbar-nav mr-auto'>
                             <li class='nav-item active'>
-                                <a class='nav-link' href='../view/index.php'>Home</a>
+                                <a class='nav-link' href='/src/view/index.php'>Home</a>
                             </li>
                             <li class='nav-item active'>
-                                <a class='nav-link' href='../view/vw.login.php'>Login</a>
+                                <a class='nav-link' href='/src/view/vw.login.php'>Login</a>
                             </li>
                         </ul>
                     </div>
@@ -47,8 +47,8 @@
                 echo" 
                     <nav class='navbar navbar-expand-md sticky-top navbar-dark bg-dark'>  
                         <div class='container-fluid'>
-                            <a class='navbar-brand' href='../view/index.php'>
-                                <img src='../template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
+                            <a class='navbar-brand' href='/src/view/index.php'>
+                                <img src='/src/template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
                             </a>
                             <!--menu responsivo-->
                             <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#menu' aria-controls='menu' aria-expanded='false' aria-label='Toggle navigation'>
@@ -57,29 +57,29 @@
                             <div class='collapse navbar-collapse' id='menu'>
                                 <ul class='navbar-nav mr-auto'>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.usuario.php'>Usuários</a>
+                                        <a class='nav-link' href='/src/view/vw.usuario.php'>Usuários</a>
                                     </li>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.solicitacao.php'>Solicitação</a>
+                                        <a class='nav-link' href='/src/view/vw.solicitacao.php'>Solicitação</a>
                                     </li>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.contrato.php'>Contratos</a>
+                                        <a class='nav-link' href='/src/view/vw.contrato.php'>Contratos</a>
                                     </li>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.perfil.php'>Perfil</a>
+                                        <a class='nav-link' href='/src/view/vw.perfil.php'>Perfil</a>
                                     </li>      
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.chCancelado.php'>Cancelamentos</a>
+                                        <a class='nav-link' href='/src/view/vw.chCancelado.php'>Cancelamentos</a>
                                     </li>                             
                                     <li>
-                                        <a class='nav-link me-2' href='../controller/c.logout.php'><span class='ti-close'></span>&nbspSair</a>
+                                        <a class='nav-link me-2' href='/src/controller/c.logout.php'><span class='ti-close'></span>&nbspSair</a>
                                     </li>
                                 </ul>
                             </div>
                             <a class='nav-link'>
                             ".'User: '.$_SESSION['nome'].'   |   ID: '.$_SESSION['id']."
                             </a>
-                            <a class='nav-link active' href='../view/vw.manUsuario.php'>Cadastrar Usuário</a>
+                            <a class='nav-link active' href='/src/view/vw.manUsuario.php'>Cadastrar Usuário</a>
                         </div>
                     </nav>
                 ";
@@ -92,8 +92,8 @@
                 echo" 
                     <nav class='navbar navbar-expand-md sticky-top navbar-dark bg-dark'>  
                         <div class='container-fluid'>
-                            <a class='navbar-brand' href='../view/index.php'>
-                                <img src='../template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
+                            <a class='navbar-brand' href='/src/view/index.php'>
+                                <img src='/src/template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
                             </a>
                             <!--menu responsivo-->
                             <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#menu' aria-controls='menu' aria-expanded='false' aria-label='Toggle navigation'>
@@ -102,16 +102,16 @@
                             <div class='collapse navbar-collapse' id='menu'>
                                 <ul class='navbar-nav mr-auto'>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.solicitacao.php'>Solicitação</a>
+                                        <a class='nav-link' href='/src/view/vw.solicitacao.php'>Solicitação</a>
                                     </li>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.contrato.php'>Contratos</a>
+                                        <a class='nav-link' href='/src/view/vw.contrato.php'>Contratos</a>
                                     </li>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.perfil.php'>Perfil</a>
+                                        <a class='nav-link' href='/src/view/vw.perfil.php'>Perfil</a>
                                     </li>
                                     <li>
-                                        <a class='nav-link me-2' href='../controller/c.logout.php'><span class='ti-close'></span>&nbspSair</a>
+                                        <a class='nav-link me-2' href='/src/controller/c.logout.php'><span class='ti-close'></span>&nbspSair</a>
                                     </li>
                                 </ul>
                             </div>
@@ -130,8 +130,8 @@
                 echo" 
                     <nav class='navbar navbar-expand-md sticky-top navbar-dark bg-dark'>  
                         <div class='container-fluid'>
-                            <a class='navbar-brand' href='../view/index.php'>
-                                <img src='../template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
+                            <a class='navbar-brand' href='/src/view/index.php'>
+                                <img src='/src/template/img/protesa_engenharia_logo.jpg' width='50' height='50' class='d-inline-block align-top' alt=''>
                             </a>
                             <!--menu responsivo-->
                             <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#menu' aria-controls='menu' aria-expanded='false' aria-label='Toggle navigation'>
@@ -140,23 +140,23 @@
                             <div class='collapse navbar-collapse' id='menu'>
                                 <ul class='navbar-nav mr-auto'>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.solicitacao.php'>Solicitação</a>
+                                        <a class='nav-link' href='/src/view/vw.solicitacao.php'>Solicitação</a>
                                     </li>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.contrato.php'>Contratos</a>
+                                        <a class='nav-link' href='/src/view/vw.contrato.php'>Contratos</a>
                                     </li>
                                     <li class='nav-item active'>
-                                        <a class='nav-link' href='../view/vw.perfil.php'>Perfil</a>
+                                        <a class='nav-link' href='/src/view/vw.perfil.php'>Perfil</a>
                                     </li>
                                     <li>
-                                        <a class='nav-link me-2' href='../controller/c.logout.php'><span class='ti-close'></span>&nbspSair</a>
+                                        <a class='nav-link me-2' href='/src/controller/c.logout.php'><span class='ti-close'></span>&nbspSair</a>
                                     </li>
                                 </ul>
                             </div>
                             <a class='nav-link'>
                             ".'User: '.$_SESSION['nome'].'   |   ID: '.$_SESSION['id']."
                             </a>
-                            <a class='nav-link active' href='../view/vw.cadSol.php'>Solicitar</a>
+                            <a class='nav-link active' href='/src/view/vw.cadSol.php'>Solicitar</a>
                         </div>
                     </nav>
                 ";

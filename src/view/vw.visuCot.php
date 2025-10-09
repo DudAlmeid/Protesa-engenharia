@@ -142,7 +142,7 @@ if (empty($_SESSION['logado']) || $_SESSION['logado'] !== true) {
 
         <div class='formulario-resposta'>
             <label>Responder</label>
-            <form action='../controller/c.atChamado.php' method='POST' enctype="multipart/form-data">
+            <form action='/src/controller/c.atChamado.php' method='POST' enctype="multipart/form-data">
                 <textarea name='tramite' rows='4' placeholder='Digite sua mensagem...' required></textarea>
                 <br><br>
                  <div class="col-md-12">

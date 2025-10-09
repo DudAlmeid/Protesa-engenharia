@@ -8,7 +8,7 @@
     if($emp->add($_POST['razaosocial'],$_POST['cnpj'],$_POST['situacao']))
     {
         header("Location: ../view/vw.manUsuario.php");
-		echo '<script> alert("Dados inseridos com sucesso"); window.location.href="../view/vw.manUsuario.php"</script>';
+		echo '<script> alert("Dados inseridos com sucesso"); window.location.href="/src/view/vw.manUsuario.php"</script>';
     }
     else
     {

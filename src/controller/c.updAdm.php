@@ -7,7 +7,7 @@
     $updUser = new user();
     if($updUser->edituser($_POST['nome'],$_POST['situacao'],$_POST['login'],$_POST['senha'],$_POST['telefone'], $_POST['cpf']))
     {
-        echo'<script> alert("Dados inseridos com sucesso"); window.location.href="../view/vw.usuario.php"</script>';
+        echo'<script> alert("Dados inseridos com sucesso"); window.location.href="/src/view/vw.usuario.php"</script>';
     }
     else
     {

@@ -13,7 +13,7 @@
     if($idUser == $_SESSION['id']){
         if($user->edit($_POST['senha'],$_POST['senhaAntiga'],$_POST['telefone'],$idUser))
         {
-           // echo'<script> alert("Dados inseridos com sucesso"); window.location.href="../view/vw.perfil.php"</script>';
+           // echo'<script> alert("Dados inseridos com sucesso"); window.location.href="/src/view/vw.perfil.php"</script>';
         }
         else
         {
@@ -28,7 +28,7 @@
         $updUser = new $usuario();
         if($updUser->edituser($_POST['nome'],$_POST['situacao'],$_POST['login'],$_POST['senha'],$_POST['telefone'], $_POST['cpf']))
         {
-            //echo'<script> alert("Dados inseridos com sucesso"); window.location.href="../view/vw.perfil.php"</script>';
+            //echo'<script> alert("Dados inseridos com sucesso"); window.location.href="/src/view/vw.perfil.php"</script>';
         }
         else
         {

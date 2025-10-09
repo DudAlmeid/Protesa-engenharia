@@ -8,7 +8,7 @@
 
     if($usuario->add($_POST['nome'],$_POST['login'],$_POST['senha'],$_POST['cpf'],$_POST['empresa'],$_POST['telefone'],$_POST['situacao'],$_POST['perfil']))
     {
-        echo'<script> alert("Dados inseridos com sucesso"); window.location.href="../view/vw.manUsuario.php"</script>';
+        echo'<script> alert("Dados inseridos com sucesso"); window.location.href="/src/view/vw.manUsuario.php"</script>';
         header("Location: ../view/vw.manUsuario.php");
     }
     else
