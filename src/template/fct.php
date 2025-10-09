@@ -94,7 +94,6 @@ function listProj(){
             where sol.idStatusSolicitacao NOT IN (1, 8) AND p.idStatusProjeto NOT IN (1, 8) and p.idUserTecnico = $idUser or sol.idUserSolicitacao = $idUser";
     $res = $mysqli->query($sql);
     if (!$res) {
-        // Se houver erro na consulta, pode retornar false ou tratar o erro
         return false;
     }
     $data = [];
@@ -120,7 +119,6 @@ function listProjAdmin(){
             where sol.idStatusSolicitacao NOT IN (1, 8) OR p.idStatusProjeto NOT IN (1, 8)";
     $res = $mysqli->query($sql);
     if (!$res) {
-        // Se houver erro na consulta, pode retornar false ou tratar o erro
         return false;
     }
     $data = [];

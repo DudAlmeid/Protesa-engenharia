@@ -12,7 +12,6 @@
     $rest = new cotacao();
 
     if ($rest->restSt($idSolicitacao)) {
-        // Atualiza status da solicitação
         header("Location: ../view/vw.solicitacao.php");
         exit;
     } else {
@@ -32,7 +31,6 @@
     $rest = new projeto();
 
     if ($rest->restSt($idProj)) {
-        // Atualiza status do projeto
         header("Location: ../view/vw.solicitacao.php");
         exit;
     } else {

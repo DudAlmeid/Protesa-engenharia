@@ -31,7 +31,6 @@
         function addTec($idTec,$situacao,$status,$idSol){
             $check = $this->con->query("SELECT idProjeto FROM tb_projeto WHERE idSolicitacaoProjeto = '$idSol'");
             if($check->num_rows > 0){
-                // já existe, apenas retorna false ou atualiza o técnico
                 return false;
             }
 

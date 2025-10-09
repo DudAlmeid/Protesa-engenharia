@@ -10,7 +10,6 @@
     $cancela = new cotacao();
 
     if ($cancela->cancelaSol($idSolicitacao)) {
-        // Atualiza status da solicitação
         header("Location: ../view/vw.solicitacao.php");
         exit;
     } else {

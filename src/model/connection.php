@@ -1,7 +1,7 @@
 <?php
 $host = "db";  // Nome do serviço no docker-compose.yml
 $user = "root";
-$password = "protesa123";  // Use a senha do MYSQL_ROOT_PASSWORD
+$password = "protesa123"; 
 $database = "db_protesa";
 
 $con = new mysqli($host, $user, $password, $database);

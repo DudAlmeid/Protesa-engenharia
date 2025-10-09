@@ -22,8 +22,8 @@ require "../template/fct.php";
             <small><?= $msg['data_envio'] ?></small>
 
             <?php
-                $idProj = $msg['id_projeto']; // ou pegue do escopo se já tiver
-                $imgAnexo = $msg['img_anexo']; // nome do arquivo salvo
+                $idProj = $msg['id_projeto']; 
+                $imgAnexo = $msg['img_anexo']; 
                 $docAnexo = $msg['doc_anexo'];
                 $caminho = "../Files_Protesa/chamado_" . $idProj . "/";
             ?>

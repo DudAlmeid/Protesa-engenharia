@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['idSolicitacao'])) {
     if ($atribue->addTec($idTec, $situacao, $status, $idSolicitacao)) {
         $atribue->status($status, $idSolicitacao);
         header('Location: ../view/vw.contrato.php');
-        exit(); // ❌ sem isso, o script continua
+        exit(); 
     } else {
         $erro = $atribue->con->error;
         header("Location: ../view/vw.solicitacao.php?idSolicitacao=$idSolicitacao&error=" . urlencode($erro));

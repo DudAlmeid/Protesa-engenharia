@@ -18,7 +18,6 @@ if (!file_exists($diretorio)) {
     }
 }
 
-// IMAGEM
 if (isset($_FILES['imgAnx']) && $_FILES['imgAnx']['error'] == 0) {
     $ext = strtolower(pathinfo($_FILES['imgAnx']['name'], PATHINFO_EXTENSION));
     if (in_array($ext, array('jpg', 'jpeg', 'png'))) {
@@ -31,7 +30,6 @@ if (isset($_FILES['imgAnx']) && $_FILES['imgAnx']['error'] == 0) {
     }
 }
 
-// DOCUMENTO
 if (isset($_FILES['docAnx']) && $_FILES['docAnx']['error'] == 0) {
     $ext = strtolower(pathinfo($_FILES['docAnx']['name'], PATHINFO_EXTENSION));
     if (in_array($ext, array('doc', 'docx', 'pdf', 'xlsx'))) {
@@ -44,7 +42,6 @@ if (isset($_FILES['docAnx']) && $_FILES['docAnx']['error'] == 0) {
     }
 }
 
-// BANCO
 $tramite = new projeto();
 if ($tramite->addTramite($dtTramite, $_POST['tramite'], $userTramite, $docNomeFinal, $imgNomeFinal, $_POST['idProj'])) {
     $tramite->statusP($_POST['idStatus'], $_POST['idProj']);
@@ -59,7 +56,6 @@ if(isset($_POST['idStatus'])){
     if($_POST['idStatus'] == 8){
         $cancela = new cotacao();
             if ($cancela->cancelaSol($idSol)) {
-        // Atualiza status da solicitação
         header("Location: ../view/vw.solicitacao.php");
         exit;
         } else {

@@ -27,7 +27,6 @@
             else if($situacao == 0){
                 $situacao = "Inativo";
             };
-            // Armazenar os dados em um array
             $resultados[] = [
                 'idUser' => $idUser,
                 'nome' => $nome,

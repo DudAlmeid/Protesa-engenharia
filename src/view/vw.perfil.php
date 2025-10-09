@@ -5,7 +5,6 @@ if (empty($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     exit();
 }
 
-    // Verificar se o ID existe na sessão
     if (!isset($_SESSION['id'])) {
         die("Erro: ID do usuário não encontrado. Faça login novamente.");
     }

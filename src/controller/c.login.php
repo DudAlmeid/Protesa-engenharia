@@ -29,11 +29,10 @@ if (isset($_POST['login'])) {
         $_SESSION['id'] = $usuario['idUser'];
         $_SESSION['nome'] = $usuario['nmUser'];
         $_SESSION['login'] = $usuario['nmLoginUser'];
-        $_SESSION['tipo'] = $usuario['idPerfil']; // ← ESTA É A LINHA IMPORTANTE
+        $_SESSION['tipo'] = $usuario['idPerfil'];
         $_SESSION['situacao'] = $usuario['icSituacaoUser'];
         $_SESSION['empresa'] = $usuario['idEmpresa'];
         
-        // Redirecionar baseado no perfil
         if ($_SESSION['tipo'] == '1') {
             header("Location: ../view/vw.usuario.php");
         } else {

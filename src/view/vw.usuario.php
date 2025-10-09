@@ -1,14 +1,11 @@
 <?php 
-// session_start() deve ser a PRIMEIRA coisa, antes de qualquer include
 session_start();
 
-// Verificar se o usuário está logado
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     header("Location: vw.login.php");
     exit();
 }
 
-// Incluir arquivos DEPOIS do session_start
 include '../model/connection.php'; 
 include '../model/usuario.factory.php';
 include '../model/empresa.factory.php';
@@ -18,7 +15,6 @@ require "../template/fct.php";
 <!DOCTYPE html>
 <html lang="pt-br">
     <?php
-    // Incluir referências depois
     include '../template/referencia.php';
     ?>
     
@@ -32,13 +28,6 @@ require "../template/fct.php";
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
         
         <?php 
-        // Debug: verificar o que tem na sessão
-        /*
-        echo "<pre>SESSION: ";
-        print_r($_SESSION);
-        echo "</pre>";
-        */
-        
         if(isset($_SESSION['tipo'])){
             if($_SESSION['tipo']=='1'){
                 navbarTecA();

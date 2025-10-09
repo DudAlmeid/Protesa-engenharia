@@ -1,6 +1,5 @@
 <?php 
 session_start();
-// Verificar se o usuário está logado
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
     header("Location: vw.login.php");
     exit();
