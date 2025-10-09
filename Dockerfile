@@ -32,8 +32,14 @@ RUN chmod -R 755 /var/www/html/
 RUN mkdir -p /var/www/html/src/Files_Protesa
 RUN chmod -R 777 /var/www/html/src/Files_Protesa/
 
-# Expor porta 80
+# Expor porta (Railway usa variável PORT)
 EXPOSE 80
+ENV PORT=80
+
+# Script para configurar porta do Apache dinamicamente
+RUN echo '#!/bin/bash\n\
+sed -i "s/80/$PORT/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf\n\
+apache2-foreground' > /start.sh && chmod +x /start.sh
 
 # Comando para iniciar o Apache
-CMD ["apache2-foreground"]
+CMD ["/start.sh"]
