@@ -2,16 +2,6 @@
 
 Sistema de gestão de solicitações e projetos para a PROTESA ENGENHARIA, especialista em atividades de coordenação e controle da operação de energia elétrica.
 
-## 🚀 Deploy na Nuvem
-
-📖 **[Guia Completo de Deploy na Nuvem](DEPLOY_CLOUD.md)**
-📖 **[Deploy Railway - Passo a Passo](DEPLOY_RAILWAY.md)**
-
-### Opções de Hospedagem:
-- ⭐ **Railway.app** (Recomendado) - Fácil e grátis para começar
-- **Render.com** - Deploy automático
-- **DigitalOcean, AWS, Azure** - Para produção em larga escala
-
 ## 💻 Desenvolvimento Local
 
 Este projeto foi configurado para rodar com Docker, facilitando o desenvolvimento e deploy.
@@ -91,15 +81,17 @@ docker-compose exec db mysql -u root -p db_protesa
 
 ```
 Protesa/
-├── Controller/          # Controllers da aplicação
-├── Model/              # Models e conexão com banco
-├── View/               # Views (páginas)
-├── Template/           # Templates e assets
-├── Files_Protesa/      # Arquivos uploadados
+├── src/
+    ├── controller/         # Controllers da aplicação
+    ├── model/              # Models e conexão com banco
+    ├── view/               # Views (páginas)
+    ├── template/           # Templates e assets
+    ├── Files_Protesa/      # Arquivos uploadados
+    ├── config/             # Configurações gerais
 ├── sql/                # Scripts SQL iniciais
 ├── Dockerfile          # Configuração do container PHP
 ├── docker-compose.yml  # Orquestração dos containers
-└── README.md          # Este arquivo
+└── README.md           # Este arquivo
 ```
 
 ### 7. Personalização
@@ -140,13 +132,3 @@ docker-compose down --rmi all
 # Reconstruir tudo
 docker-compose up -d --build
 ```
-
-## Produção
-
-Para usar em produção:
-
-1. Altere as senhas padrão
-2. Configure SSL/HTTPS
-3. Use volumes externos para dados persistentes
-4. Configure backup do banco de dados
-5. Ajuste as configurações de segurança do MySQL
