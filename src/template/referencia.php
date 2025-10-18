@@ -1,4 +1,3 @@
-<meta charset="UTF-8">
 <?php
     function init(){
         setlocale(LC_ALL, 'pt_BR.utf-8');
@@ -16,6 +15,10 @@
         <script src='/src/template/js/bootstrap.js'></script>
         <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'></script>";
     }
+?>
+
+<meta charset="UTF-8">
+<?php
     function navbar(){
         echo "
             <nav class='navbar navbar-expand-md sticky-top navbar-dark bg-dark'>  
@@ -197,7 +200,7 @@
                         </a>
 
                         <a data-mdb-ripple-init class='btn btn-link btn-floating btn-lg text-body m-1'
-                            href='https://wa.me/5513997595789'
+                            href='https://wa.me/5513981575713'
                             role='button'
                             data-mdb-ripple-color='dark'>
                             <i class='bi-whatsapp'></i>

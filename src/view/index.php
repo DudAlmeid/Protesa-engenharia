@@ -1,16 +1,17 @@
+<?php
+    $referencia_path = dirname(__DIR__) . '/template/referencia.php';
+    if (file_exists($referencia_path)) {
+        include $referencia_path;
+    } else {
+        die("Arquivo de referência não encontrado: " . $referencia_path);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
-    <?php
-        $referencia_path = dirname(__DIR__) . '/template/referencia.php';
-        if (file_exists($referencia_path)) {
-            include $referencia_path;
-        } else {
-            die("Arquivo de referência não encontrado: " . $referencia_path);
-        }
-    ?>
-
     <head>
         <title>Home PROTESA ENGENHARIA</title>
+        <?php init(); ?>
     </head>
 
     <body>
