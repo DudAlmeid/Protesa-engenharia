@@ -23,6 +23,16 @@ PORT_NUMBER=$(echo $PORT | sed "s/[^0-9]*//g")\n\
 if [ -z "$PORT_NUMBER" ]; then PORT_NUMBER=80; fi\n\
 sed -i "s/Listen .*/Listen ${PORT_NUMBER}/" /etc/apache2/ports.conf\n\
 sed -i "s/<VirtualHost .*>/<VirtualHost *:${PORT_NUMBER}>/" /etc/apache2/sites-available/000-default.conf\n\
+
+if [ -f /sql/init.sql ]; then\n\
+  echo \"🚀 Executando /sql/init.sql...\"\n\
+  mysql -h \"$MYSQLHOST\" -P \"$MYSQLPORT\" -u \"$MYSQLUSER\" -p\"$MYSQLPASSWORD\" \"$MYSQLDATABASE\" < /sql/init.sql\n\
+  echo \"✅ Script SQL executado com sucesso!\"\n\
+else\n\
+  echo \"⚠️  Nenhum arquivo /sql/init.sql encontrado.\"\n\
+fi\n\
+\n\
+
 exec apache2-foreground' > /start.sh && chmod +x /start.sh
 
 CMD ["/start.sh"]
