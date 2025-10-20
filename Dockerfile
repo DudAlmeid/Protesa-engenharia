@@ -14,8 +14,11 @@ RUN a2ensite 000-default && a2enmod rewrite
 RUN chown -R www-data:www-data /var/www/html/ && chmod -R 755 /var/www/html/
 RUN mkdir -p /var/www/html/src/Files_Protesa && chmod -R 777 /var/www/html/src/Files_Protesa/
 
+
 EXPOSE 80
 ENV PORT=80
+
+COPY sql/ /sql/
 
 # 🚀 Script seguro para Railway
 RUN echo '#!/bin/bash\n\
